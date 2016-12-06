@@ -1,0 +1,76 @@
+---
+title: "Nov_9_2016"
+author: "Transforming Drainage"
+date: "November 9, 2016"
+output: html_document
+---
+
+
+##DRAINMOD-DSSAT
+Modeling
+
+
+#Model Componenets
+>consist of3 model:
+1. DRAINMOD
+2. DRAINMOD-NII (takes outputs from DRAINMOD to model nitrogen )
+3. CROP Models (we  choose DSSAT)
+    - DSSAT is a modular structure
+
+simulated in daily time step 
+does not have user-friendly outface, so you have to manually change inputs
+
+now DRAINMOD-NII and  DSSAT are subrutines of DRAINMOD
+
+
+>DRAINMOD
+field-scale model
+simulates surface runoff, ET, water tables
+the model was designe to simulate hydrology of poorly drained soil, could also simulate yield simplisticly 
+origianl DRAINMOD could not take N stresses, climate change, crop rotation
+- Was choosed because of the hydrology
+
+
+>DRAINMOD-NII
+- simulates nitrogen and C 
+    - concentration of the N
+- plant uptake of N was related to yield (percent of yield), but uptake changes day-by-day and can depend on soil water content
+-  process-based vs imperical 
+    - imperical will have fixed imperical esamption for yield
+
+>Drawbacks
+- late planting is not considered
+- neglects the effect of changes in meteorological condistions on plant growth ..
+-shortage of the DRAINMOD and NII was crop yield prediction 
+
+>Calibration is done using N load
+>Hardology should be calibrated the first, and then start with the N, and close enough estimation of the yield 
+  >>>>hydrology data seems to be impoertant
+
+>DSSAT
+-it has its own hydrology, nitrogen and other components, but they took only cropping part of the model
+- it cannot simulate well hydrology poorly-drained soils (do poor job in predicting yeild in poorly drained soil becasue of hydrology)
+- can simmulate 26 crops
+
+
+>NOW
+-DRAINMOD-NII and DSSAT are subrutine of the DRAINMOD
+-run DRAINMOD first, 
+-than use weathere data (imput), PET (simulated), soil moisture(simulated), soil temp(simulated) as input in DSSAT
+-effective root depth from DSSAT goes into DRAINMOD-NII, also N uptake and residue biomass uptake
+-DRAINMOD  
+- all Yield and Update is simulated daily by DSSAT, but you can still use the original way and write a fixed values for yield and N updated inputs 
+
+>Management Input
+-soil temperature is important for regions were soil can freeze because it effects N cycle 
+   
+ 
+ 
+ 
+
+#Model Use
+
+#Model Testing
+
+#Potential Model Improvments
+
