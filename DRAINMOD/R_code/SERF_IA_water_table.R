@@ -1,12 +1,13 @@
 library(googlesheets)
 library(xlsx)
 library(lubridate)
+library(dplyr)
 library(stringr)
 suppressPackageStartupMessages(library(dplyr))
 
 # SERF_IA ----
 
-setwd("C:/Users/Go/Google Drive/MODELLING/RAW_MODEL_DATA")
+setwd("C:/Users/Gio/Google Drive/MODELLING/RAW_MODEL_DATA")
 dir()
 
 # read google sheets ----
@@ -99,6 +100,21 @@ a <- is.na(midnightWT[2:9]) & !is.na(averageWT[-1, 2:9])
 for (i in 1:8) {
   midnightWT[a[ , i], i+1] <- averageWT[c(FALSE, a[ , i]), i+1]
 }
+
+
+
+# data from 2011 to 2015 are in mm
+# convert it to cm
+
+gwt %>% 
+  mutate_at(vars(matches("S")), funs(ifelse(year(Date) > 2010, ./10, . ))) -> gwt
+
+averageWT %>% 
+  mutate_at(vars(matches("S")), funs(ifelse(year(date) > 2010, ./10, . ))) -> averageWT
+
+midnightWT %>% 
+  mutate_at(vars(matches("S")), funs(ifelse(year(date) > 2010, ./10, . ))) -> midnightWT
+
 
 
 # save whole data
